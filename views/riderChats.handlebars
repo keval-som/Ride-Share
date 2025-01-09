@@ -1,0 +1,32 @@
+<main class="rider-chats-container">
+  <h1 class="page-title">Your Chats</h1>
+
+  {{#if chats.length}}
+    <ul class="chat-list">
+      {{#each chats}}
+        <li class="chat-item">
+          <div class="chat-details">
+            <h2 class="chat-title">
+              <strong>Driver:</strong>
+              {{driver}}
+            </h2>
+            <p><strong>Origin:</strong> {{ride.origin}}</p>
+            <p><strong>Destination:</strong> {{ride.destination}}</p>
+            <p><strong>Date:</strong> {{ride.date}}</p>
+            <p><strong>Time:</strong> {{ride.time}}</p>
+            <p><strong>Amount:</strong> ${{ride.amount}}</p>
+            {{!-- <p><strong>Driver's Phone:</strong> {{ride.driverPhone}}</p>
+            <p><strong>Driver's Email:</strong> {{ride.driverEmail}}</p> --}}
+          </div>
+
+          <!-- Open Chat Button -->
+          <form action="/chat/{{ride.rideId}}" method="GET">
+            <button type="submit" class="btn btn-primary">Open Chat</button>
+          </form>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no-chats-message">You have no chats at the moment.</p>
+  {{/if}}
+</main>

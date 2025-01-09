@@ -1,0 +1,38 @@
+<main class="requested-rides-container">
+  <h1 class="page-title">Requested Rides</h1>
+
+  {{#if requests.length}}
+    <ul class="ride-list">
+      {{#each requests}}
+        <li class="ride-item">
+          <div class="ride-details">
+            <p><strong>Role:</strong> {{role}}</p>
+            <p><strong>Rider:</strong> {{rider}}</p>
+            <p><strong>Driver:</strong> {{driver}}</p>
+            <p><strong>Origin:</strong> {{origin}}</p>
+            <p><strong>Destination:</strong> {{destination}}</p>
+            <p><strong>Date:</strong> {{date}}</p>
+            <p><strong>Time:</strong> {{time}}</p>
+            <p><strong>Amount:</strong> ${{amount}}</p>
+            <p><strong>Status:</strong> {{status}}</p>
+          </div>
+
+          {{#if (eq role "Driver")}}
+            {{#if (eq status "pending")}}
+              <div class="action-buttons">
+                <form action="/requestedRides/accept/{{requestId}}" method="POST">
+                  <button class="btn btn-accept" type="submit">Accept</button>
+                </form>
+                <form action="/requestedRides/reject/{{requestId}}" method="POST">
+                  <button class="btn btn-reject" type="submit">Reject</button>
+                </form>
+              </div>
+            {{/if}}
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no-requests-message">No ride requests at the moment.</p>
+  {{/if}}
+</main>

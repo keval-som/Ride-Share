@@ -1,0 +1,150 @@
+<main class="chat-container">
+  <h1 class="chat-title">Chat</h1>
+  <p class="chat-subtitle">
+    Chat between <strong>{{driverUsername}}</strong> (Driver) and <strong>{{riderUsername}}</strong> (Rider)
+  </p>
+
+  <div id="chatBox" class="chat-box">
+    {{#each chat.messages}}
+      <div class="chat-message">
+        <span class="chat-sender">{{sender}}:</span>
+        <span class="chat-text">{{message}}</span>
+        <span class="chat-timestamp">{{timestamp}}</span>
+      </div>
+    {{else}}
+      <p class="chat-no-messages">No messages yet. Start the conversation!</p>
+    {{/each}}
+  </div>
+
+  <form id="chatForm" class="chat-form">
+    <textarea
+      id="chatMessage"
+      placeholder="Type a message..."
+      class="chat-input"
+      rows="1"
+      required
+    ></textarea>
+    <button type="submit" class="chat-send-button">Send</button>
+
+    {{#if (eq user.username riderUsername)}}
+      {{#unless requestExists}}
+        <button
+          type="button"
+          id="requestRideButton"
+          class="chat-request-button"
+        >
+          Request Ride
+        </button>
+      {{else}}
+        <button
+          type="button"
+          class="chat-request-disabled"
+          disabled
+        >
+          Ride Requested
+        </button>
+      {{/unless}}
+    {{/if}}
+  </form>
+</main>
+
+<script>
+  const chatId = {{{json chatId}}};
+  const sender = {{{json user.username}}};
+  const rideId = {{{json chat.rideId}}};
+
+  function fetchMessages() {
+    fetch(`/chat/messages/${chatId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const chatBox = document.getElementById("chatBox");
+        chatBox.innerHTML = ""; 
+
+        data.messages.forEach((msg) => {
+          const messageDiv = document.createElement("div");
+          messageDiv.classList.add("chat-message");
+          messageDiv.innerHTML = `
+            <span class="chat-sender">${msg.sender}:</span>
+            <span class="chat-text">${msg.message}</span>
+            <span class="chat-timestamp">${new Date(msg.timestamp).toLocaleString()}</span>
+          `;
+          chatBox.appendChild(messageDiv);
+        });
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+      })
+      .catch((error) => console.error("Error fetching messages:", error));
+  }
+
+  setInterval(fetchMessages, 2000);
+  fetchMessages();
+
+  const chatMessageInput = document.getElementById("chatMessage");
+  chatMessageInput.addEventListener("input", function () {
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
+  });
+
+  const chatForm = document.getElementById("chatForm");
+  chatForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const chatMessage = document.getElementById("chatMessage").value;
+
+    fetch(`/chat/send/${chatId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sender,
+        message: chatMessage,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        chatMessageInput.value = "";
+        chatMessageInput.style.height = "auto"; 
+        fetchMessages();
+      })
+      .catch((error) => console.error("Error sending message:", error));
+  });
+
+  chatMessageInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); 
+      chatForm.dispatchEvent(new Event("submit")); 
+    }
+  });
+
+  const requestRideButton = document.getElementById("requestRideButton");
+  if (requestRideButton) {
+    requestRideButton.addEventListener("click", () => {
+      fetch(`/rideRequest`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rideId,
+          rider: sender,
+        }),
+      })
+        .then((response) => {
+          return response.text().then((text) => {
+            if (response.ok) {
+              alert("Request sent!");
+              window.location.href = "/dashboard";
+            } else {
+              alert(`Error: ${text}`);
+            }
+          });
+        })
+        .catch((error) => console.error("Error requesting ride:", error));
+    });
+  }
+</script>

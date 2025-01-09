@@ -1,0 +1,39 @@
+<main class="container">
+  <h1 class="title">Upcoming Rides</h1>
+
+  {{#if rides.length}}
+    <div class="rides-container">
+      {{#each rides}}
+        <div class="ride-card {{#if (eq role 'Driver')}}driver-card{{else}}rider-card{{/if}}">
+          <div class="ride-details">
+            <p><span class="label">Role:</span> {{role}}</p>
+            <p><span class="label">Rider:</span> {{rider}}</p>
+            <p><span class="label">Driver:</span> {{driver}}</p>
+            <p><span class="label">Origin:</span> {{origin}}</p>
+            <p><span class="label">Destination:</span> {{destination}}</p>
+            <p><span class="label">Date:</span> {{date}}</p>
+            <p><span class="label">Time:</span> {{time}}</p>
+            <p><span class="label">Amount:</span> ${{amount}}</p>
+            <p><span class="label">Car Type:</span> {{carType}}</p>
+          </div>
+
+          {{#if canCancel}}
+            <form action="/upcomingRides/cancel/{{rideId}}" method="POST" class="cancel-form">
+              <button class="cancel-button">Cancel Ride</button>
+            </form>
+          {{/if}}
+
+          {{#if canFinish}}
+            <form action="/upcomingRides/finish/{{rideId}}" method="POST" class="finish-form">
+              <button class="finish-button">Finish Ride</button>
+            </form>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <div class="no-rides">
+      <p>No upcoming rides at the moment.</p>
+    </div>
+  {{/if}}
+</main>

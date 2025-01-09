@@ -1,0 +1,36 @@
+<main class="posted-rides-container">
+  <h1 class="page-title">My Posted Rides</h1>
+
+  {{#if postedRides.length}}
+    <ul class="ride-list">
+      {{#each postedRides}}
+        <li class="ride-item">
+          <div class="ride-details">
+            <p class="ride-route"><strong>{{origin}} ➔ {{destination}}</strong></p>
+            <p><strong>Date:</strong> {{date}}</p>
+            <p><strong>Time:</strong> {{time}}</p>
+            <p><strong>Seats Available:</strong> {{seats}}</p>
+            <p><strong>Amount per Seat:</strong> ${{amount}}</p>
+            <p><strong>Available:</strong> {{#if isAvailable}}Yes{{else}}No{{/if}}</p>
+          </div>
+
+          {{#if chats.length}}
+            <h3 class="chat-heading">Active Chats</h3>
+            <ul class="chat-list">
+              {{#each chats}}
+                <li class="chat-item">
+                  <span class="chat-info"><strong>Rider:</strong> {{rider}}</span>
+                  <a href="/chat/session/{{chatId}}" class="btn btn-chat"> Open Chat</a>
+                </li>
+              {{/each}}
+            </ul>
+          {{else}}
+            <p class="no-chats">No active chats for this ride.</p>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no-posted-rides">You have not posted any rides yet.</p>
+  {{/if}}
+</main>

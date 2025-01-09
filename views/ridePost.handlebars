@@ -1,0 +1,113 @@
+<script src="../public/js/ridePublish.js"></script>
+<main class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+  <h1 class="text-3xl font-bold text-blue-600 mb-8 text-center">Post a Ride</h1>
+
+  <form
+    id="ridePostForm"
+    action="/ridePost/post"
+    method="POST"
+    class="space-y-6"
+  >
+    <div>
+      <label
+        for="ridePostOrigin"
+        class="block text-lg font-medium text-gray-700 mb-2"
+      >Origin</label>
+      <select id="ridePostOrigin" name="origin" required>
+        <option value="" disabled selected>Choose your starting location</option>
+        <option value="New York City">New York City</option>
+        <option value="Boston">Boston</option>
+        <option value="Hoboken">Hoboken</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="ridePostDestination">Destination</label>
+      <select id="ridePostDestination" name="destination" required>
+        <option value="" disabled selected>Choose your destination</option>
+        <option value="New York City">New York City</option>
+        <option value="Boston">Boston</option>
+        <option value="Hoboken">Hoboken</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="ridePostDate">Date</label>
+      <input type="date" id="ridePostDate" name="date" required />
+    </div>
+
+    <div>
+      <label for="ridePostTime">Time</label>
+      <input type="time" id="ridePostTime" name="time" required />
+    </div>
+
+    <div>
+      <label
+        for="carType"
+        class="block text-lg font-medium text-gray-700 mb-2"
+      >Car Type</label>
+      <select id="carType" name="carType" required>
+        <option value="" disabled selected>Select car type</option>
+        <option value="Sedan">Sedan (4 seats)</option>
+        <option value="SUV">SUV (6 seats)</option>
+        <option value="Minivan">Minivan (7 seats)</option>
+      </select>
+    </div>
+
+    <div>
+      <label
+        for="ridePostSeats"
+        class="block text-lg font-medium text-gray-700 mb-2"
+      >Number of Seats Available</label>
+      <select id="ridePostSeats" name="seats" required>
+        <option value="" disabled selected>Select seats</option>
+      </select>
+    </div>
+
+    <div>
+      <label
+        for="ridePostAmount"
+        class="block text-lg font-medium text-gray-700 mb-2"
+      >Amount ($)</label>
+      <input
+        type="number"
+        id="ridePostAmount"
+        name="amount"
+        class="block w-full border border-gray-300 rounded-lg py-2 px-3 text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        min="1"
+        required
+      />
+      <input
+        type="button"
+        value="Recommend Price"
+        id="recommendPrice"
+        name="recommendPrice"
+        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300"
+      />
+    </div>
+
+    <div>
+      <label
+        for="ridePostDescription"
+        class="block text-lg font-medium text-gray-700 mb-2"
+      >Description</label>
+      <textarea
+        id="ridePostDescription"
+        name="description"
+        class="block w-full border border-gray-300 rounded-lg py-2 px-3 text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        rows="4"
+        placeholder="Provide more details about your ride like pickup points, drop-off points, etc."
+        required
+      ></textarea>
+    </div>
+
+    <div>
+      <button
+        type="submit"
+        class="w-full bg-blue-500 text-white py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300 text-lg"
+      >
+        Post Ride
+      </button>
+    </div>
+  </form>
+</main>

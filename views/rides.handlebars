@@ -1,0 +1,33 @@
+<div class="rides-container">
+  <h1 class="rides-title">Available Rides</h1>
+
+  {{#if hasRides}}
+    <ul class="rides-list">
+      {{#each rides}}
+        <li class="ride-item">
+          <div class="ride-header">
+            <h2 class="ride-route">{{origin}} → {{destination}}</h2>
+            <p class="ride-date-time"><strong>{{date}}</strong> | {{time}}</p>
+          </div>
+
+          <div class="ride-details">
+            <p><strong>Seats Available:</strong> {{seats}}</p>
+            <p><strong>Amount per Seat:</strong> ${{amount}}</p>
+            <p><strong>Car Type:</strong> {{carType}}</p>
+            <p>Description: {{description}}</p>
+          </div>
+          <a href="/rideinfo/{{rideId}}">More Details</a>
+          <div class="button-container">
+            <a href="/review/{{driverId}}" class="review-button">View Driver's
+              Review</a>
+            <a href="/chat/{{rideId}}" class="chat-button">Chat with Driver</a>
+          </div>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <div class="no-rides-message">
+      <p>No rides available at the moment. Please try again later.</p>
+    </div>
+  {{/if}}
+</main>

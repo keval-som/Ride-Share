@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" href="../public/css/styles.css" />
+<main class="review-container">
+  {{#if error}}
+    <div
+      class="error-message bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+    >
+      {{error}}
+    </div>
+  {{/if}}
+
+  <div class="review-container max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6 text-center">Reviews for the Driver: {{driver}}</h1>
+
+    {{#if hasReviews}}
+      <div class="reviews-list space-y-4">
+        {{#each reviews}}
+          <div class="review-card bg-white p-6 rounded-lg shadow-md">
+            <div class="review-header">
+              <h3 class="font-semibold">Reviewer - {{this.reviewer}}</h3>
+              <span
+                class="rating bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
+              > Rating - 
+                {{this.rating}}/5
+              </span>
+                <p class="rating bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Comments - {{this.comment}}</p>
+                {{!-- <p class="text-sm text-gray-500">Ride ID: {{this.rideId}}</p> --}}
+            </div>    
+          </div>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="no-reviews bg-white p-8 rounded-lg shadow-md text-center">
+        <h2 class="text-xl font-semibold mb-2">No Reviews Yet</h2>
+        <p class="text-gray-600">This driver hasn't received any reviews yet.</p>
+      </div>
+    {{/if}}
+  </div>
+  <button onclick="window.history.back()" class="back-button">Back to previous page</button>
+</main>

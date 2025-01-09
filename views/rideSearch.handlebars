@@ -1,0 +1,157 @@
+<main class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-white shadow-lg rounded-lg p-8 mt-10 max-w-lg mx-auto">
+    <h1
+      class="text-2xl sm:text-3xl font-bold text-blue-600 mb-6 text-center"
+    >Search for a Ride</h1>
+
+    <form
+      id="rideSearchForm"
+      action="/rideSearch"
+      method="POST"
+      class="space-y-6"
+    >
+      <div>
+        <label
+          for="startLocation"
+          class="block text-gray-700 font-medium mb-2"
+        >Starting Location</label>
+        <select
+          id="startLocation"
+          name="startLocation"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+          onchange="updateEndLocationOptions()"
+        >
+          <option value="" disabled selected>Select a starting location</option>
+          <option value="New York City">New York City</option>
+          <option value="Boston">Boston</option>
+          <option value="Hoboken">Hoboken</option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          for="endLocation"
+          class="block text-gray-700 font-medium mb-2"
+        >Ending Location</label>
+        <select
+          id="endLocation"
+          name="endLocation"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+          onchange="updateStartLocationOptions()"
+        >
+          <option value="" disabled selected>Select an ending location</option>
+          <option value="New York City">New York City</option>
+          <option value="Boston">Boston</option>
+          <option value="Hoboken">Hoboken</option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          for="date"
+          class="block text-gray-700 font-medium mb-2"
+        >Date</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="time" class="block text-gray-700 font-medium mb-2">Preferred
+          Time</label>
+        <input
+          type="time"
+          id="time"
+          name="time"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label
+          for="seatsRequired"
+          class="block text-gray-700 font-medium mb-2"
+        >Number of Seats Required</label>
+        <select
+          id="seatsRequired"
+          name="seatsRequired"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        >
+          <option value="" disabled selected>Select seats</option>
+          <option value="1">1 Seat</option>
+          <option value="2">2 Seats</option>
+          <option value="3">3 Seats</option>
+          <option value="4">4 Seats</option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          for="minPrice"
+          class="block text-gray-700 font-medium mb-2"
+        >Minimum Price ($)</label>
+        <input
+          type="number"
+          id="minPrice"
+          name="minPrice"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value="0"
+          min="0"
+          required
+        />
+
+        <label
+          for="maxPrice"
+          class="block text-gray-700 font-medium mb-2"
+        >Maximum Price ($)</label>
+        <input
+          type="number"
+          id="maxPrice"
+          name="maxPrice"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value="100"
+          min="0"
+          required
+        />
+      </div>
+
+      {{!-- <div>
+        <label
+          for="driverRating"
+          class="block text-gray-700 font-medium mb-2"
+        >Minimum Driver Rating</label>
+        <select
+          id="driverRating"
+          name="driverRating"
+          class="block w-full border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        >
+          <option value="0" selected>Select rating</option>
+          <option value="0">0 Star</option>
+          <option value="1">1 Star</option>
+          <option value="2">2 Stars</option>
+          <option value="3">3 Stars</option>
+          <option value="4">4 Stars</option>
+          <option value="5">5 Stars</option>
+        </select>
+      </div> --}}
+
+      <div>
+        <button
+          type="submit"
+          class="block w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300"
+        >
+          Search Ride
+        </button>
+      </div>
+    </form>
+  </div>
+</main>

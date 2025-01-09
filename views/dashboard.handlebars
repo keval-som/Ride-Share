@@ -1,0 +1,30 @@
+
+<main>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <h2 class="sidebar-title">Dashboard</h2>
+      <nav class="sidebar-nav">
+        <a href="/rideSearch" class="nav-link">Book Ride</a>
+        <a href="/ridePost" class="nav-link">Post Ride</a>
+        <a href="/upcomingRides" class="nav-link">Upcoming Rides</a>
+        <a href="/rideHistory" class="nav-link">Ride History</a>
+        <a href="/requestedRides" class="nav-link">Requested Rides</a>
+        <a href="/postedRides" class="nav-link">My Posted Rides</a>
+        <a href="/riderChats" class="nav-link">Chats</a>
+        <a href="/profile" class="nav-link">Profile</a>
+      </nav>
+      <form action="/logout" method="GET" class="logout-form">
+        <button type="submit" class="logout-btn">Logout</button>
+      </form>
+    </aside>
+
+    <div class="main-content">
+      <h1>Welcome, {{user.username}}!</h1>
+      <p>Manage your rides and account using the options in the menu.</p>
+      <div id="content">
+        <p>Select an option from the menu to get started.</p>
+      </div>
+    </div>
+  </div>
+</main>
+

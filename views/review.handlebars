@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" href="../public/css/styles.css" />
+<div class="review-container">
+  <h1>Review Your Driver : {{user}}</h1>
+  {{#if error}}
+    <div class="error-message">{{error}}</div>
+  {{/if}}
+  {{#if success}}
+    <div class="success-message">{{success}}</div>
+  {{/if}}
+  <form action="/review" method="post" class="review-form">
+      <input type="hidden" name="reviewer" value="{{reviewer}}">
+    <input type="hidden" name="user" value="{{user}}">
+    <input type="hidden" name = "rideId" value="{{rideId}}">
+    <label for="rating" class="review-label">Rate the driver (1-5):</label>
+    <select id="rating" name="rating" class="review-select" required>
+      <option value="" disabled selected>Select a rating</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <br class="my-4" />
+    <label for="comment" class="review-label">Review Comment:</label>
+    <textarea
+      id="comment"
+      name="comment"
+      rows="4"
+      cols="50"
+      required
+      class="review-textarea"
+    ></textarea>
+    <br />
+    <button type="submit" class="review-button">Submit Review</button>
+  </form>
+</main>

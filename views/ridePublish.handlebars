@@ -1,0 +1,89 @@
+<script src="../public/js/ridePublish.js"></script>
+<section class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
+  <h2 class="text-2xl font-bold text-blue-600 mb-6">Publish a Ride</h2>
+
+  <form id="rideSearchForm" action="/ridePost" method="POST" class="space-y-4">
+    <!-- Starting Location -->
+    <div>
+      <label for="startLocation" class="block text-gray-700 font-medium mb-2">Starting Location</label>
+      <select id="startLocation" name="startLocation" class="w-full border border-gray-300 rounded-lg p-2" required>
+        <option value="">Select a starting location</option>
+        <option value="New York City">New York City</option>
+        <option value="Boston">Boston</option>
+        <option value="Hoboken">Hoboken</option>
+      </select>
+    </div>
+
+    <!-- Ending Location -->
+    <div>
+      <label for="endLocation" class="block text-gray-700 font-medium mb-2">Ending Location</label>
+      <select id="endLocation" name="endLocation" class="w-full border border-gray-300 rounded-lg p-2" required>
+        <option value="">Select an ending location</option>
+        <option value="New York City">New York City</option>
+        <option value="Boston">Boston</option>
+        <option value="Hoboken">Hoboken</option>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div>
+      <label for="date" class="block text-gray-700 font-medium mb-2">Date</label>
+      <input type="date" id="date" name="date" class="w-full border border-gray-300 rounded-lg p-2" required
+        min="{{currentDate}}">
+    </div>
+
+    <!-- Time -->
+    <div>
+      <label for="time" class="block text-gray-700 font-medium mb-2">Time</label>
+      <input type="time" id="time" name="time" class="w-full border border-gray-300 rounded-lg p-2" required>
+    </div>
+
+    <!-- Car Model -->
+    <div>
+      <label for="carType" class="block text-gray-700 font-medium mb-2">Car Type</label>
+      <Select id="carType" name="carType"
+        class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required>
+        <option value="">Select a car model</option>
+        <option value="Sedan">Sedan</option>
+        <option value="SUV">SUV</option>
+        <option value="Truck">Truck</option>
+      </Select>
+
+    </div>
+
+    <!-- Available Seats -->
+    <div>
+      <label for="seats" class="block text-gray-700 font-medium mb-2">Available
+        Seats</label>
+      <input id="seats" name="seats" type="number" min="1"
+        class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required>
+    </div>
+
+    <!-- Price per Seat -->
+    <div>
+      <label for="price" class="block text-gray-700 font-medium mb-2">Price per
+        Seat</label>
+      <div class="flex space-x-2">
+        <input id="price" name="price" type="number" min="0"
+          class="flex-grow border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required>
+        <input type="button" value="Recommend Price" id="recommendPrice" name="recommendPrice"
+          class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div id="error" class="hidden text-red-500 font-medium"></div>
+    <!-- Success Message -->
+    <div id="success" class="hidden text-green-500 font-medium"></div>
+    <!-- Submit Button -->
+    <div>
+      <button type="submit"
+        class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
+        Publish Ride
+      </button>
+    </div>
+  </form>
+</section>

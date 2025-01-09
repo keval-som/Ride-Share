@@ -1,0 +1,51 @@
+<main class="max-w-4x1 mx-auto bg-white shadow-md rounded-lg p-8">
+	<script>
+		document.title = "Ride Info";
+	</script>
+	<h1 class="text-2xl font-bold text-blue-600 mb-6">{{ride.carType}}</h1>
+	<h2>{{ride.description}}</h2>
+
+	{{#if isError}}
+	<p class="error">{{error}}</p>
+	{{/if}}
+
+	{{#if booked}}
+	<p>Ride successfully booked!</p>
+	{{/if}}
+
+	<section>
+		<dl>
+			<dt>Date</dt>
+			<dd>{{ride.date}}</dd>
+
+			<dt>Time</dt>
+			<dd>{{ride.time}}</dd>
+
+			<dt>Locations</dt>
+			<dd>{{ride.origin}} to {{ride.destination}}</dd>
+
+			<dt>Available seats</dt>
+			<dd>{{ride.seats}}</dd>
+
+			<dt>Price (per seat)</dt>
+			<dd>${{ride.amount}}</dd>
+
+			<dt>Est. duration</dt>
+			<dd>{{ride.estimatedDuration}}</dd>
+
+			<dt>Cancelled?</dt>
+			{{#if ride.isAvailable}}
+			<dd>No</dd>
+			{{else}}
+			<dd class="cancelled">Yes</dd>
+			{{/if}}
+
+			<form id="bookRideButton" method="post" action="/rideinfo">
+				<button type="submit"
+				class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+					Book Ride
+				</button>
+			</form>
+		</dl>
+	</section>
+</main>

@@ -1,0 +1,179 @@
+<div class="ride-history-container">
+  <h1 class="ride-history-title">Ride History</h1>
+
+  {{#if rides.length}}
+    <ul class="ride-history-list">
+      {{#each rides}}
+        <li class="ride-history-item" data-ride-id="{{_id}}">
+          <div class="ride-details">
+            <h2 class="ride-title">{{origin}} ➔ {{destination}}</h2>
+            <p><strong>Role:</strong> {{#ifEquals ../user.username driver}}Driver{{else}}Rider{{/ifEquals}}</p>
+            <p><strong>Origin:</strong> {{origin}}</p>
+            <p><strong>Destination:</strong> {{destination}}</p>
+            <p><strong>Date:</strong> {{date}}</p>
+            <p><strong>Time:</strong> {{time}}</p>
+            <p><strong>Status:</strong> {{status}}</p>
+
+            {{#ifEquals ../user.username driver}}
+              <p><strong>Earnings:</strong> ${{amount}}</p>
+            {{else}}
+              <p><strong>Amount Paid:</strong> ${{amount}}</p>
+            {{/ifEquals}}
+
+            {{#if rider}}
+              <p><strong>Rider:</strong> {{rider}}</p>
+            {{/if}}
+
+            {{#if driver}}
+              <p><strong>Driver:</strong> {{driver}}</p>
+            {{/if}}
+          </div>
+
+          {{#if (eq status "Finished")}}
+            <div class="rating-section">
+              <p>
+                {{#ifEquals ../user.username driver}}
+                  Rate the Rider: {{rider}}
+                {{else}}
+                  Rate the Driver: {{driver}}
+                {{/ifEquals}}
+              </p>
+
+              <div
+                class="star-rating"
+                data-role="{{#ifEquals ../user.username driver}}rider{{else}}driver{{/ifEquals}}"
+                data-id="{{#ifEquals ../user.username driver}}{{rider}}{{else}}{{driver}}{{/ifEquals}}"
+              >
+                {{#each ../stars}}
+                  <span class="star" data-value="{{this}}">&#9734;</span>
+                {{/each}}
+              </div>
+
+              <button class="submit-rating-btn" disabled>Submit Rating</button>
+            </div>
+
+            {{!-- Report Section --}}
+            <div class="report-section">
+              <button
+                class="report-btn"
+                data-ride-id="{{_id}}"
+                data-user-id="{{#ifEquals ../user.username driver}}{{rider}}{{else}}{{driver}}{{/ifEquals}}"
+              >
+                Report {{#ifEquals ../user.username driver}}Rider{{else}}Driver{{/ifEquals}}
+              </button>
+            </div>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no-rides-message">No rides found in your history.</p>
+  {{/if}}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const starContainers = document.querySelectorAll(".star-rating");
+
+    starContainers.forEach((container) => {
+      const stars = container.querySelectorAll(".star");
+      const submitButton = container.nextElementSibling;
+
+      let selectedRating = 0;
+
+      stars.forEach((star, index) => {
+        star.addEventListener("mouseover", () => {
+          for (let i = 0; i <= index; i++) {
+            stars[i].classList.add("hover");
+          }
+        });
+
+        star.addEventListener("mouseout", () => {
+          for (let i = 0; i <= index; i++) {
+            stars[i].classList.remove("hover");
+          }
+        });
+
+        star.addEventListener("click", () => {
+          selectedRating = index + 1;
+          stars.forEach((s, idx) => {
+            if (idx < selectedRating) {
+              s.classList.add("selected");
+            } else {
+              s.classList.remove("selected");
+            }
+          });
+
+          submitButton.disabled = false; 
+        });
+      });
+
+      submitButton.addEventListener("click", () => {
+        const role = container.getAttribute("data-role");
+        const id = container.getAttribute("data-id");
+
+        fetch("/rideHistory/rateUser", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            rideId: container.closest(".ride-history-item").dataset.rideId,
+            userId: id,
+            role: role,
+            rating: selectedRating,
+          }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((data) => {
+                throw new Error(data.error || "Failed to submit rating");
+              });
+            }
+            return response.json();
+          })
+          .then(() => {
+            alert("Rating submitted successfully!");
+            submitButton.disabled = true;
+          })
+          .catch((error) => {
+            alert(error.message); 
+          });
+      });
+    });
+
+    const reportButtons = document.querySelectorAll(".report-btn");
+
+    reportButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const rideId = button.dataset.rideId;
+        const userId = button.dataset.userId;
+
+        if (
+          confirm(
+            "Are you sure you want to report this user? Reporting might ban them from the platform. Do you wish to proceed?"
+          )
+        ) {
+          fetch("/rideHistory/reportUser", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ rideId, userId }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.json().then((data) => {
+                  throw new Error(data.error || "Failed to report user");
+                });
+              }
+              alert("User has been reported successfully!");
+            })
+            .catch((error) => {
+              alert(error.message);
+            });
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,61 @@
+<html lang="en" class="h-full">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/public/css/output.css" />
+    <!-- Fixed relative path -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body class="bg-gray-100 relative text-gray-800 font-sans">
+
+    <div class="min-height">
+      <header class="bg-blue-600 text-white py-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center px-6">
+          <!-- Logo and Name -->
+          <div class="flex items-center space-x-4">
+            <h1 class="text-black font-bold text-2xl logo-text">RideSync</h1>
+            <img
+              src="/public/images/logo.png"
+              alt="Ride Sync Logo"
+              class="company-logo h-12 w-auto"
+            />
+          </div>
+          {{#if showNav}}
+            <nav class="space-x-4">
+              <a
+                href="/dashboard"
+                class="hover:underline px-3 py-2 rounded bg-blue-500 hover:bg-blue-700"
+              >
+                Dashboard
+              </a>
+              <a
+                href="/logout"
+                class="hover:underline px-3 py-2 rounded bg-red-500 hover:bg-red-700"
+              >
+                Logout
+              </a>
+            </nav>
+          {{/if}}
+        </div>
+      </header>
+
+      <main class="relative mx-auto py-12 px-6 h-screen">
+        {{{body}}}
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white absolute bottom-6 py-4 footer">
+      <div class="container mx-auto text-center">
+        <p class="text-sm">&copy; 2024 My Web Application. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

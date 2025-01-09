@@ -1,0 +1,132 @@
+<script src="/public/js/script.js"></script>
+<div class="profile-wrapper">
+  <div class="profile-header">
+    <h1 class="profile-heading">Profile</h1>
+  </div>
+
+  <section class="profile-details">
+    <h2 class="section-heading">User Information</h2>
+    <div class="details-grid">
+      <div class="detail-item">
+        <h3 class="detail-label">Name</h3>
+        <p class="detail-value">{{user.name}}</p>
+      </div>
+      <div class="detail-item">
+        <h3 class="detail-label">Phone Number</h3>
+        <p class="detail-value">{{user.phone}}</p>
+      </div>
+      <div class="detail-item">
+        <h3 class="detail-label">Email</h3>
+        <p class="detail-value">{{user.email}}</p>
+      </div>
+      <div class="detail-item">
+        <h3 class="detail-label">Username</h3>
+        <p class="detail-value">{{user.username}}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <h2 class="section-heading">Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <h3 class="review-label">As Rider</h3>
+        <div class="rating-display">
+          <span class="star">&#9733;</span>
+          <span class="rating-value">{{user.riderReview}}</span>
+        </div>
+        <p class="review-count">{{user.riderReviewCount}} ratings</p>
+      </div>
+
+      <div class="review-card">
+        <h3 class="review-label">As Driver</h3>
+        <div class="rating-display">
+          <span class="star">&#9733;</span>
+          <span class="rating-value">{{user.driverReview}}</span>
+        </div>
+        <p class="review-count">{{user.driverReviewCount}} ratings</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="statistics-section">
+    <h2 class="section-heading">Statistics</h2>
+    <div class="statistics-grid">
+      <div class="stat-item">
+        <h3 class="stat-label">Rides Taken</h3>
+        <p class="stat-value">{{user.ridesTaken}}</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="stat-label">Rides Given</h3>
+        <p class="stat-value">{{user.ridesGiven}}</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="stat-label">Reports Made</h3>
+        <p class="stat-value">{{user.reportsMade}}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="statistics-section">
+    <h2 class="section-heading">Statistics</h2>
+    <div class="statistics-grid">
+      <div class="stat-item">
+        <h3 class="stat-label">Rides Taken</h3>
+        <p class="stat-value">{{user.ridesTaken}}</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="stat-label">Rides Given</h3>
+        <p class="stat-value">{{user.ridesGiven}}</p>
+      </div>
+      <div class="stat-item">
+        <h3 class="stat-label">Reports Made</h3>
+        <p class="stat-value">{{user.reportsMade}}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="safety-section">
+    <h2 class="section-heading">Safety Preferences</h2>
+    <div class="safety-grid">
+      <div class="safety-item">
+        <h3 class="safety-label"><a
+            href="#"
+            id="shareTripStatusLink"
+            class="hover:underline"
+          >Share trip status</a></h3>
+        {{!-- <p class="safety-value">{{user.ridesTaken}}</p> --}}
+      </div>
+    </div>
+  </section>
+
+  <div id="shareTripStatusModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 class="modal-title">Share Trip Status</h3>
+      <form
+        id="shareTripStatusForm"
+        action="/profile/shareTripStatus"
+        method="post"
+      >
+        <label for="shareEmail" class="modal-label">Email to share trip status</label>
+        <input
+          type="email"
+          id="shareEmail"
+          name="shareEmail"
+          class="modal-input"
+          required
+        />
+        <div class="modal-actions">
+          <button
+            type="submit"
+            class="modal-button modal-button-primary"
+          >Share</button>
+          <button
+            type="button"
+            id="closeModalButton"
+            class="modal-button modal-button-secondary"
+          >Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
