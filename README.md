@@ -3,6 +3,47 @@
 Welcome to the Ride Share application! This project is designed to connect drivers and riders efficiently. Our application provides a seamless experience for users to post, search, book, and manage rides, ensuring a smooth and reliable service for all participants.
 
 ## How to Run the Application
+### Prerequisites
+
+Before running the application, ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [MongoDB](https://www.mongodb.com/) (v4.4 or higher)
+
+### Setting Up MongoDB
+
+1. Install MongoDB by following the instructions on the [official MongoDB website](https://docs.mongodb.com/manual/installation/).
+2. Start the MongoDB server:
+    ```bash
+    mongod
+    ```
+3. Create a new database for the application:
+    ```bash
+    mongo
+    use ride_share_db
+    ```
+
+### Creating the `.env` File
+
+Create a `.env` file in the root directory of the project and add the following environment variables:
+
+```
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/ride_share_db
+SESSION_SECRET=your_secret_key
+EMAIL_SERVICE=your_email_service
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password
+```
+
+Replace the placeholder values with your actual configuration.
+
+### Installing Dependencies
+
+Navigate to the project directory and install the required dependencies:
+
+```bash
+npm install
+```
 
 To start the application, use the following command:
 ```bash
